@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State var text = ""
+    @State var dropdownItems: [String] = []
+    @State var selectedURL: URL?
+    @State var isPresented: Bool = false
+    @State var isLoading: Bool = false
+    
     var body: some View {
         VStack {
             HeaderView()
@@ -16,6 +21,9 @@ struct ContentView: View {
             Spacer()
         }
         .padding()
+        .sheet(isPresented: $isPresented) {
+            
+        }
     }
 }
 
@@ -38,6 +46,18 @@ extension ContentView {
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(10)
+    }
+    
+    var WebViewSection: some View {
+        VStack {
+            if isLoading {
+                ProgressView("Loading...")
+                    .padding()
+            }
+            if let url = selectedURL {
+                WebView(url: url, isLoading: $isLoading)
+            }
+        }
     }
 }
 
