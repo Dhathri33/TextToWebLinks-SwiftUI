@@ -18,6 +18,9 @@ struct ContentView: View {
         VStack {
             HeaderView()
             TextFieldView
+            if !dropdownItems.isEmpty{
+                dropdownSection
+            }
             Spacer()
         }
         .padding()
@@ -42,7 +45,7 @@ struct HeaderView: View {
 
 extension ContentView {
     var TextFieldView: some View {
-        TextField("Enter text here", text: $text)
+        TextField("Enter text here", text: $text, onCommit: addToDropdown)
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(10)
@@ -57,6 +60,25 @@ extension ContentView {
             if let url = selectedURL {
                 WebView(url: url, isLoading: $isLoading)
             }
+        }
+    }
+    
+    var dropdownSection: some View {
+        DropDownView(items: dropdownItems, onSelected: { item in
+            if let url = URL(string: item) {
+                selectedURL = url
+                isPresented = true
+            }
+        })
+    }
+    
+    private func addToDropdown() {
+        if !text.isEmpty {
+            let newItem = "http://\(text).com"
+            if !dropdownItems.contains(newItem) {
+                dropdownItems.append(newItem)
+            }
+            text = ""
         }
     }
 }
