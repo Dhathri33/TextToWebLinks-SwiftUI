@@ -23,7 +23,7 @@ struct WebView: UIViewRepresentable {
     
     func updateUIView(_ webView: WKWebView, context: Context){
         if webView.url == nil {
-            var request = URLRequest(url: url)
+            let request = URLRequest(url: url)
             webView.load(request)
         }
     }
@@ -40,6 +40,7 @@ struct WebView: UIViewRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: any Error) {
+            print("error")
             parent.isLoading = false
         }
         

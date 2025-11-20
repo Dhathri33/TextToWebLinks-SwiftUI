@@ -12,10 +12,16 @@ struct DropDownView: View {
     let onSelected : (String) -> Void
     
     var body: some View {
-        List(items, id:\.self){ item in
-            DropDownButton(item: item)
-            Divider()
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(items, id: \.self) { item in
+                DropDownButton(item: item)
+                Divider()
+            }
         }
+        .background(Color(.systemBackground))
+        .cornerRadius(10)
+        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 5)
+        .padding(.horizontal)
     }
     
     func DropDownButton(item: String) -> some View {

@@ -25,7 +25,7 @@ struct ContentView: View {
         }
         .padding()
         .sheet(isPresented: $isPresented) {
-            
+            WebViewSection
         }
     }
 }
